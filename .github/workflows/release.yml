@@ -21,11 +21,10 @@ jobs:
           targets: wasm32-wasip1
 
       - name: Build wasm
-        run: cargo build -p vtx-plugin-auth-basic --target wasm32-wasip1 --release
+        run: cargo build --target wasm32-wasip1 --release
 
       - name: Package .vtx
-        working-directory: plugins/vtx-plugin-auth-basic
-        run: cargo run -p vtx-cli -- package --input ../../target/wasm32-wasip1/release/vtx_plugin_auth_basic.wasm
+        run: cargo run -p vtx-cli -- package --input target/wasm32-wasip1/release/vtx_plugin_auth_basic.wasm
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
