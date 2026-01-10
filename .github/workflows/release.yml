@@ -20,13 +20,28 @@ jobs:
         with:
           targets: wasm32-wasip1
 
+      - name: Setup Rust Cache
+        uses: swatinem/rust-cache@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install vtx-cli
+        run: npm install -g @vtxdeo/cli
+
       - name: Build wasm
         run: cargo build --target wasm32-wasip1 --release
 
       - name: Package .vtx
-        run: cargo run -p vtx-cli -- package --input target/wasm32-wasip1/release/vtx_plugin_auth_basic.wasm
+        run: vtx package --input target/wasm32-wasip1/release/vtx_plugin_auth_basic.wasm
+
+      - name: Rename release asset
+        run: |
+          mv target/wasm32-wasip1/release/vtx_plugin_auth_basic.vtx target/wasm32-wasip1/release/vtx-plugin-auth-basic-${{ github.ref_name }}.vtx
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          files: target/wasm32-wasip1/release/vtx_plugin_auth_basic.vtx
+          files: target/wasm32-wasip1/release/vtx-plugin-auth-basic-${{ github.ref_name }}.vtx
