@@ -1,0 +1,11 @@
+[project]
+name = "vtx-plugin-auth-basic"
+language = "rust"
+
+[build]
+cmd = "cargo build --target wasm32-wasip1 --release -p vtx-plugin-auth-basic"
+output_dir = "target/wasm32-wasip1/release"
+artifact = "vtx_plugin_auth_basic.wasm"
+
+[sdk]
+version = "0.1.10"
