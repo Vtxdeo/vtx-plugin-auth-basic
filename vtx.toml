@@ -1,5 +1,8 @@
+vtx_version = 1
+
 [project]
 name = "vtx-plugin-auth-basic"
+version = "0.1.0"
 language = "rust"
 authors = [{ name = "VTX Team", email = "" }]
 description = "Basic auth plugin for VTX"
