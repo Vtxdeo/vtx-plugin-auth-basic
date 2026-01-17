@@ -48,12 +48,12 @@ impl BasicAuthPlugin {
             .next()
             .map(|v| v.trim().to_string())
             .filter(|v| !v.is_empty())
-            .ok_or_else(|| VtxError::AuthDenied(401))?;
+            .ok_or(VtxError::AuthDenied(401))?;
 
         let password = parts
             .next()
             .map(|v| v.to_string())
-            .ok_or_else(|| VtxError::AuthDenied(401))?;
+            .ok_or(VtxError::AuthDenied(401))?;
 
         Ok((username, password))
     }
@@ -105,7 +105,7 @@ LIMIT 1
     fn authenticate_impl(headers: &[(String, String)]) -> VtxResult<UserContext> {
         let req = AuthRequest::new(headers);
 
-        let b64 = req.basic_auth().ok_or_else(|| VtxError::AuthDenied(401))?;
+        let b64 = req.basic_auth().ok_or(VtxError::AuthDenied(401))?;
         let (username, password) = Self::decode_basic_credentials(b64)?;
 
         let Some(row) = Self::load_user_by_username(&username)? else {
