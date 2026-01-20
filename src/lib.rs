@@ -1,6 +1,7 @@
 use base64::engine::general_purpose::STANDARD;
 use base64::Engine;
 use sha2::{Digest, Sha256};
+use vtx_sdk::db;
 use vtx_sdk::prelude::*;
 
 const PLUGIN_ID: &str = "vtx.auth.basic";

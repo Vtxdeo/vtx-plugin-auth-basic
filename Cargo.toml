@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-vtx-sdk = "0.1.10"
+vtx-sdk = "0.1.14"
 
 # 序列化工具
 serde = { version = "1.0", features = ["derive"] }
